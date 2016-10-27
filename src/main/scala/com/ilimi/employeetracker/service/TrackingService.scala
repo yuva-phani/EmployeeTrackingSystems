@@ -73,7 +73,14 @@ object TrackingService {
 
   //calculate Employee Absent
   val employeeAbsent = sqlContext.sql("select  empid,weekdaysCount(2016-08-01,2016-10-07)-count(date)as absent from employeetrackingsystem  where date like '%%%%-%%-%%' group by empid ")
-
   employeeAbsent.show()
+
+ //calculate avg time per month in office
+  val averageTimePerMonth = sqlContext.sql("select empid,avg(timeinoffice) as averagetimepermonth from employeetrackingsystem  where date like '%%%%-%%' group by empid ")
+  averageTimePerMonth.show()
+
+  //calculate avg time per week in office
+  val averageTimePerWeek = sqlContext.sql("select empid,avg(timeinoffice) as averagetimeperweek from employeetrackingsystem  where date like '%%%%-%% %%w' group by empid ")
+  averageTimePerWeek.show()
 
 }
