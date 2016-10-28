@@ -16,13 +16,12 @@ import com.ilimi.employeetracker.utils.DateTimeUtils.epocTimeToDay
 import com.ilimi.employeetracker.utils.DateTimeUtils.epocTimeToDayWithMonth
 import com.ilimi.employeetracker.utils.DateTimeUtils.epocTimeToDayWithWeek
 import com.ilimi.employeetracker.utils.PropertyReader
-
-//import sqlContext.implicits._
+import com.ilimi.employeetracker.sqloperations.SqlOperations
 
 case class EmployeeTrackingSystem(empid: String, date: String, timeinoffice: Long, firstlogintime: Long)
 case class GeneratedData(empid: String, logintimeinepochformat: Long, logouttimeinepochformat: Long)
 
-object TrackingService  {
+object TrackingService {
 
   val configuration = new SparkConf(true).set("spark.cassandra.connection.host", PropertyReader.getProperty("ipAddress")).setMaster(PropertyReader.getProperty("master"))
   val sc = new SparkContext("local", "test", configuration)
@@ -49,12 +48,11 @@ object TrackingService  {
   val employeeTrackingSystemvalues = timeInOfficeWithPeriodGroupByEmpDate.map(f => EmployeeTrackingSystem(f._1, f._2, f._3, f._4))
 
   //saving data to cassandra
-  employeeTrackingSystemvalues.saveToCassandra(PropertyReader.getProperty("keySpace"),PropertyReader.getProperty("table"))
-   
+  employeeTrackingSystemvalues.saveToCassandra(PropertyReader.getProperty("keySpace"), PropertyReader.getProperty("table"))
+
   //reading data from Cassandra
   val employeeTrackingSystemReadFromCassandraTable = sc.cassandraTable[EmployeeTrackingSystem](PropertyReader.getProperty("keySpace"), PropertyReader.getProperty("table"))
 
-  
   // ***************************** calculating expected Arrival time to office ***************************
 
   val selectingEmpidAndFirstLoginTime = employeeTrackingSystemReadFromCassandraTable.map { x => (x.empid, x.firstlogintime) }
@@ -63,42 +61,20 @@ object TrackingService  {
   val sortFirstLogintimeListGroupByEmpid = selectingEmpidAndFirstLoginTime.groupBy(f => f._1).mapValues(f => (f.map(_._2).toList.sortBy(f => f).distinct))
 
   //calculating median logic 
-  val expectedArrival = sortFirstLogintimeListGroupByEmpid.map(f => (f._1,
-    
-      //if size is even then (mid1+mid2)/2 else mid
-    if (f._2.size % 2 == 0) (f._2((f._2.size / 2)) + f._2(((f._2.size ) / 2)-1))/2  else f._2(f._2.size / 2) //median login 
+  val expectedArrivalEachEmp = sortFirstLogintimeListGroupByEmpid.map(f => (f._1,
+
+    //if size is even then (mid1+mid2)/2 else mid
+    if (f._2.size % 2 == 0) (f._2((f._2.size / 2)) + f._2(((f._2.size) / 2) - 1)) / 2 else f._2(f._2.size / 2) //median login 
     ))
 
   //*********************************** End ****************************************************************   
 
   //********************************** Spark SQL Queries ****************************************************    
 
-  //creating sql Context
-  val sqlContext = new SQLContext(sc)
-  import sqlContext.implicits._
-
-  val df = employeeTrackingSystemReadFromCassandraTable.toDF()
-
-  //creating temporary view
-  df.createOrReplaceTempView("employeetrackingsystem")
-
-  //creating UDF for WeekDays Count
-  def weekdaysCount(fromDate: String, toDate: String): Int = calculateWeekDays("2016-08-01", "2016-10-07")
-
-  //registering UDF 
-  sqlContext.udf.register("weekdaysCount", weekdaysCount(_: String, _: String))
-
-  //calculate Employee Absent
-  val employeeAbsent = sqlContext.sql("select  empid,weekdaysCount(2016-08-01,2016-10-07)-count(date)as absent from employeetrackingsystem  where date like '%%%%-%%-%%' group by empid ")
-  employeeAbsent.show()
-
-  //calculate avg time per month in office
-  val averageTimePerMonth = sqlContext.sql("select empid,avg(timeinoffice) as averagetimepermonth from employeetrackingsystem  where date like '%%%%-%%' group by empid ")
-  averageTimePerMonth.show()
-
-  //calculate avg time per week in office
-  val averageTimePerWeek = sqlContext.sql("select empid,avg(timeinoffice) as averagetimeperweek from employeetrackingsystem  where date like '%%%%-%% %%w' group by empid ")
-  averageTimePerWeek.show()
+  val employeeAbsent = SqlOperations.employeeAbsent
+  val averageTimePerMonthEachEmployee = SqlOperations.averageTimePerMonth
+  val averageTimePerWeekEachEmployee = SqlOperations.averageTimePerWeek
+ 
 
   //**************************************** End *******************************************************************  
 }
