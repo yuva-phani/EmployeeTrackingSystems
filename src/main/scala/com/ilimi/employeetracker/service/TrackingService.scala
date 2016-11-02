@@ -31,8 +31,11 @@ case class GeneratedData(empid: String, logintimeinepochformat: Long, logouttime
 object TrackingService {
 
   val configuration = new SparkConf(true).set("spark.cassandra.connection.host", PropertyReader.getProperty("ipAddress")).setMaster(PropertyReader.getProperty("master"))
-  val sc = new SparkContext("local", "test", configuration)
+  var sc = SparkContext.getOrCreate()
+  var employeeTrackingSystemReadFromCassandraTable = sc.cassandraTable[EmployeeTrackingSystem]("", "")
+
   try {
+    sc = new SparkContext("local", "test", configuration)
     //reading file from local path
     val timeInOffice = sc.textFile("timeinoffice3.csv").map(_.split(",")).map { x => GeneratedData(x(0), x(1).toLong, x(2).toLong) }
 
@@ -58,7 +61,7 @@ object TrackingService {
     employeeTrackingSystemvalues.saveToCassandra(PropertyReader.getProperty("keySpace"), PropertyReader.getProperty("table"))
 
     //reading data from Cassandra
-    val employeeTrackingSystemReadFromCassandraTable = sc.cassandraTable[EmployeeTrackingSystem](PropertyReader.getProperty("keySpace"), PropertyReader.getProperty("table"))
+    employeeTrackingSystemReadFromCassandraTable = sc.cassandraTable[EmployeeTrackingSystem](PropertyReader.getProperty("keySpace"), PropertyReader.getProperty("table"))
 
     // ***************************** calculating expected Arrival time to office ***************************
 
