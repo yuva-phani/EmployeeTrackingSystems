@@ -11,11 +11,9 @@ import org.apache.spark.sql.SQLContext
 import com.ilimi.employeetracker.utils.DateTimeUtils.calculateWeekDays
 object SqlOperations {
   
-  
-  
   val sparkContext=TrackingService.sc
   //Reading data from Cassandra
-  val employeeTrackingSystemReadFromCassandraTable = sparkContext.cassandraTable[EmployeeTrackingSystem](PropertyReader.getProperty("keySpace"), PropertyReader.getProperty("table"))
+  val employeeTrackingSystemReadFromCassandraTable = TrackingService.employeeTrackingSystemReadFromCassandraTable
 
   //creating sql Context
   val sqlContext = new SQLContext(sparkContext)
