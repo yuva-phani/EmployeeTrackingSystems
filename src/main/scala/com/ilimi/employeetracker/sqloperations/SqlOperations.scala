@@ -14,8 +14,9 @@ object SqlOperations {
   
   
   val sparkContext=TrackingService.sc
-  
-   val employeeTrackingSystemReadFromCassandraTable = TrackingService.employeeTrackingSystemReadFromCassandraTable
+  //Reading data from Cassandra
+  val employeeTrackingSystemReadFromCassandraTable = sparkContext.cassandraTable[EmployeeTrackingSystem](PropertyReader.getProperty("keySpace"), PropertyReader.getProperty("table"))
+
   //creating sql Context
   val sqlContext = new SQLContext(sparkContext)
   import sqlContext.implicits._
