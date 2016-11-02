@@ -10,7 +10,7 @@ import scala.util.Random
 import org.joda.time.DateMidnight
 import org.joda.time.DateTime
 import org.joda.time.DateTimeConstants
-
+import com.ilimi.employeetracker.utils.DateTimeUtils.dateRanges
 object DataGeneration extends App {
 
   def main(args: Array[String]) {
@@ -41,31 +41,4 @@ object DataGeneration extends App {
     bwr.close();
     println("Writing to CSV file Done!!")
   }
-
-  //Generate Date sequences with out weekends in Date range
-  def dateRanges(start: DateTime, end: DateTime): Array[DateMidnight] = {
-    var array = ArrayBuffer[DateMidnight]()
-    var weekday = start;
-
-    if (start.getDayOfWeek() == DateTimeConstants.SATURDAY ||
-      start.getDayOfWeek() == DateTimeConstants.SUNDAY) {
-      weekday = weekday.plusWeeks(1).withDayOfWeek(DateTimeConstants.MONDAY);
-
-    }
-
-    while (weekday.isBefore(end)) {
-
-      if (weekday.getDayOfWeek() == DateTimeConstants.FRIDAY) {
-        weekday = weekday.plusDays(3);
-
-      } else {
-        weekday = weekday.plusDays(1);
-
-      }
-      array += weekday.toDateMidnight()
-    }
-
-    return array.toArray
-  }
-
 }
