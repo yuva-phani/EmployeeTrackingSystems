@@ -13,14 +13,8 @@ import com.ilimi.employeetracker.utils.PropertyReader
 
 object DateTimeUtils {
 
-  def strDateTotimeInSeconds(x: String): Long = {
-    DateTimeFormat.forPattern(PropertyReader.getProperty("onlyDayFormat") + " " + PropertyReader.getProperty("onlyTimeFormat")).parseDateTime(x).getMillis() / 1000
-  }
-
-  def strDateToDay(x: String): String = {
-    DateTimeFormat.forPattern(PropertyReader.getProperty("onlyDayFormat") + " " + PropertyReader.getProperty("onlyTimeFormat")).parseDateTime(x).toYearMonthDay().toString()
-  }
-
+ 
+//extracting time in seconds from date and time in string format
   def strToOnlyTimeInSeconds(x: String): Long = {
     val parseFormat = new SimpleDateFormat(PropertyReader.getProperty("onlyDayFormat") + " " + PropertyReader.getProperty("onlyTimeFormat"))
     val printFormat = new SimpleDateFormat(PropertyReader.getProperty("onlyTimeFormat"))
@@ -34,8 +28,8 @@ object DateTimeUtils {
     return duration
   }
 
+  //Calculate number of week days
   def calculateWeekDays(fromDate: String, toDate: String): Int = {
-
     val df = new SimpleDateFormat(PropertyReader.getProperty("onlyDayFormat"))
     val date1 = df.parse(fromDate)
     val date2 = df.parse(toDate)
@@ -43,7 +37,6 @@ object DateTimeUtils {
     val cal2 = Calendar.getInstance()
     cal1.setTime(date1)
     cal2.setTime(date2)
-
     var numberOfDays = 1;
     while (cal1.before(cal2)) {
       if ((Calendar.SATURDAY != cal1.get(Calendar.DAY_OF_WEEK))
@@ -55,21 +48,7 @@ object DateTimeUtils {
     return numberOfDays
   }
 
-  //no of weeks between two dates
-
-  def noOfWeeksBetweenTwoDates(fromDate: String, toDate: String): Int = {
-    val dateTime1 = new DateTime(fromDate);
-    val dateTime2 = new DateTime(toDate);
-    val weeks = Weeks.weeksBetween(dateTime1, dateTime2).getWeeks();
-    return weeks
-  }
-
-  def noOfMonthsBetweenTwoDates(fromDate: String, toDate: String): Int = {
-    val dateTime1 = new DateTime(fromDate);
-    val dateTime2 = new DateTime(toDate);
-    return Months.monthsBetween(dateTime1, dateTime2).getMonths();
-  }
-
+  //Converting Epoch time format to only day not including time
   def epocTimeToDate(x: Long): String = {
     val formatter = new SimpleDateFormat(PropertyReader.getProperty("onlyDayFormat").toString());
     val calendar = Calendar.getInstance();
@@ -77,32 +56,24 @@ object DateTimeUtils {
     return formatter.format(calendar.getTime()).toString()
   }
 
-  def epocTimeToTime(x: Long): String = {
-    val formatter = new SimpleDateFormat(PropertyReader.getProperty("onlyTimeFormat").toString());
-    val calendar = Calendar.getInstance();
-    calendar.setTimeInMillis(x * 1000);
-
-    return formatter.format(calendar.getTime()).toString()
-  }
+ //converting epoch time to only Day
   def epocTimeToDay(x: Long): String = {
     val formatter = new SimpleDateFormat(PropertyReader.getProperty("onlyDayFormat").toString());
     val calendar = Calendar.getInstance();
     calendar.setTimeInMillis(x * 1000);
     return formatter.format(calendar.getTime()).toString()
   }
-
+  
+//extracting only time from Date and Time in epoch format
   def epocDateTimeToTimeInEpoch(x: Long): Long = {
-
-    // val date = new Date(x);
     val calendar = Calendar.getInstance();
     calendar.setTimeInMillis(x * 1000);
-
-    val formatter = new SimpleDateFormat("YYY-MM-dd HH:mm:ss");
+    val formatter = new SimpleDateFormat("YYY-MM-dd HH:mm:ss")
     val date = formatter.format(calendar.getTime()).toString()
     return strToOnlyTimeInSeconds(date)
 
   }
-
+//Converting epoch time to year and week
   def epocTimeToDayWithWeek(x: Long): String = {
     val formatter = new SimpleDateFormat(PropertyReader.getProperty("onlyDayFormat").toString());
     val calendar = Calendar.getInstance();
@@ -111,11 +82,34 @@ object DateTimeUtils {
     val yearMonth = epocTimeToDayWithMonth(x)
     return yearMonth + " " + weekOfYear + "w"
   }
+  
+  //Converting epoch time to year and month
   def epocTimeToDayWithMonth(x: Long): String = {
     val formatter = new SimpleDateFormat("YYYY-MM");
     val calendar = Calendar.getInstance();
-    calendar.setTimeInMillis(x * 1000);
+    calendar.setTimeInMillis(x * 1000)
     return formatter.format(calendar.getTime()).toString()
   }
+  
+  //Generate Date sequences with out weekends in Date range
+  def dateRanges(start: DateTime, end: DateTime): Array[DateMidnight] = {
+    var array = ArrayBuffer[DateMidnight]()
+    var weekday = start;
+    if (start.getDayOfWeek() == DateTimeConstants.SATURDAY ||
+      start.getDayOfWeek() == DateTimeConstants.SUNDAY) {
+      weekday = weekday.plusWeeks(1).withDayOfWeek(DateTimeConstants.MONDAY)
+    }
+    while (weekday.isBefore(end)) {
+      if (weekday.getDayOfWeek() == DateTimeConstants.FRIDAY) {
+        weekday = weekday.plusDays(3)
+      } else {
+        weekday = weekday.plusDays(1)
+      }
+      array += weekday.toDateMidnight()
+    }
+    return array.toArray
+  }
+
+}
 
 }
