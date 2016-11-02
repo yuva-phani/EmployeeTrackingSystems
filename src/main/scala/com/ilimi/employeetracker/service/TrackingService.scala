@@ -1,4 +1,4 @@
-package com.ilimi.employeetrack.service
+package com.ilimi.employeetracker.service
 
 import scala.collection.mutable.ArrayBuffer
 import scala.reflect.runtime.universe
@@ -10,13 +10,13 @@ import org.apache.spark.sql.SQLContext
 
 import com.datastax.spark.connector._
 import com.datastax.spark.connector.toSparkContextFunctions
-import com.ilimi.employeetrack.utils.DateTimeUtils.calculateWeekDays
-import com.ilimi.employeetrack.utils.DateTimeUtils.epocDateTimeToTimeInEpoch
-import com.ilimi.employeetrack.utils.DateTimeUtils.epocTimeToDay
-import com.ilimi.employeetrack.utils.DateTimeUtils.epocTimeToDayWithMonth
-import com.ilimi.employeetrack.utils.DateTimeUtils.epocTimeToDayWithWeek
-import com.ilimi.employeetrack.utils.PropertyReader
-import com.ilimi.employeetrack.sqloperations.SqlOperations
+import com.ilimi.employeetracker.utils.DateTimeUtils.calculateWeekDays
+import com.ilimi.employeetracker.utils.DateTimeUtils.epocDateTimeToTimeInEpoch
+import com.ilimi.employeetracker.utils.DateTimeUtils.epocTimeToDay
+import com.ilimi.employeetracker.utils.DateTimeUtils.epocTimeToDayWithMonth
+import com.ilimi.employeetracker.utils.DateTimeUtils.epocTimeToDayWithWeek
+import com.ilimi.employeetracker.utils.PropertyReader
+import com.ilimi.employeetracker.sqloperations.SqlOperations
 import java.util.Arrays
 import scala.collection.mutable.Buffer
 import scala.collection.mutable.ListBuffer
@@ -71,7 +71,7 @@ object TrackingService {
     val expectedArrivalEachEmp = sortFirstLogintimeListGroupByEmpid.map(f => (f._1,
 
       //if size is even then (mid1+mid2)/2 else mid
-      if (f._2.size % 2 == 0) (f._2((f._2.size / 2)) + f._2(((f._2.size) / 2) - 1)) / 2 else f._2(f._2.size / 2) //median login 
+      if (f._2.size % 2 == 0) (f._2((f._2.size / 2)) + f._2(((f._2.size) / 2) - 1)) / 2 else f._2(f._2.size / 2) //median logic 
       ))
 
     //*********************************** End ****************************************************************   
