@@ -31,12 +31,11 @@ case class GeneratedData(empid: String, logintimeinepochformat: Long, logouttime
 object TrackingService {
 
   val configuration = new SparkConf(true).set("spark.cassandra.connection.host", PropertyReader.getProperty("ipAddress")).setMaster(PropertyReader.getProperty("master"))
-  var sc = SparkContext.getOrCreate()
+  val sc = new SparkContext("local", "test", configuration)
   var employeeTrackingSystemReadFromCassandraTable = sc.cassandraTable[EmployeeTrackingSystem]("", "")
 
   try {
-    sc = new SparkContext("local", "test", configuration)
-    //reading file from local path
+     //reading file from local path
     val timeInOffice = sc.textFile("timeinoffice3.csv").map(_.split(",")).map { x => GeneratedData(x(0), x(1).toLong, x(2).toLong) }
 
     //time in office  day having empid,day,total time,firstlogin time
