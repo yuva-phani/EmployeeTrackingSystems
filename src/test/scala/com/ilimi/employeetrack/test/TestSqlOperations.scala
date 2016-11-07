@@ -5,12 +5,13 @@ import com.ilimi.employeetrack.service.TrackingService
 import com.ilimi.employeetrack.main.SparkContextUtil
 import com.ilimi.employeetrack.sqloperations.SqlOperations._
 import com.ilimi.employeetrack.utils.DateTimeUtils._
+import com.ilimi.employeetrack.datageneration.DataGeneration
 
 class TestSqlOperations extends FlatSpec {
 
   val sparkContext = SparkContextUtil.sparkcontext
   //test data generation
-  DataGeneration.dataGeneration
+  DataGeneration.dataGeneration("fileNameTest",5,"startDateTest","endDateTest")
 
   TrackingService.saveToCassandra(sparkContext, "fileNameTest")
 

@@ -7,7 +7,7 @@ import com.ilimi.employeetrack.sqloperations.SqlOperations
 object TimeInOffice {
   def main(args: Array[String]) {
     //data generation
-    DataGeneration.dataGeneration
+    DataGeneration.dataGeneration("fileName",100,"startDate","endDate")
     //tracking service and loading data to cassandra table
     val sparkContext = SparkContextUtil.sparkcontext
     TrackingService.saveToCassandra(sparkContext,"fileName")

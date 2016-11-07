@@ -18,15 +18,15 @@ import com.ilimi.employeetrack.utils.DateTimeUtils.dateRanges
 import com.ilimi.employeetrack.utils.PropertyReader
 
 object DataGeneration {
+  var bwr: BufferedWriter = null
+  def dataGeneration(fileName: String, employeeCount: Int, startDate: String, endDate: String){
 
-  def dataGeneration {
-    var bwr: BufferedWriter = null
-    if (!new java.io.File(PropertyReader.getProperty("fileName")).exists) {
+    if (!new java.io.File(PropertyReader.getProperty(fileName)).exists) {
       try {
-        bwr = new BufferedWriter(new FileWriter(new File(PropertyReader.getProperty("fileName"))));
+        bwr = new BufferedWriter(new FileWriter(new File(PropertyReader.getProperty(fileName))));
 
         // Generate Date ranges between two dates
-        val range = dateRanges(new DateTime(PropertyReader.getProperty("startDate")), new DateTime(PropertyReader.getProperty("endDate")))
+        val range = dateRanges(new DateTime(PropertyReader.getProperty(startDate)), new DateTime(PropertyReader.getProperty(startDate)))
 
         //Login time Sequence In Seconds
         val loginTimeSequencePerDay = 32400 to 43200
@@ -36,7 +36,7 @@ object DataGeneration {
 
         val random = new scala.util.Random()
         random.setSeed(100L)
-        for (employee <- 1 to 100) {
+        for (employee <- 1 to employeeCount) {
 
           //Working days for each employee
           val listOfWorkingDaysPerEmployee = 45 to 80
@@ -71,6 +71,8 @@ object DataGeneration {
 
       println("file already present in location !!!")
     }
+
+   
   }
 
 }

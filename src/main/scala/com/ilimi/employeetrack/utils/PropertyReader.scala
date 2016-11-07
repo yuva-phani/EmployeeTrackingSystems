@@ -6,7 +6,7 @@ import java.util.Properties
 
 object PropertyReader {
 
-  val file = new File("config.properties");
+  val file = new File("resources/config.properties");
   val fileInput = new FileInputStream(file);
   val properties = new Properties();
   properties.load(fileInput);

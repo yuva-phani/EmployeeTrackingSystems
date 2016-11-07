@@ -27,6 +27,7 @@ import com.ilimi.employeetrack.datageneration.DataGeneration
 import com.ilimi.employeetrack.main.SparkContextUtil
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.DataFrame
+import org.apache.spark.sql.catalyst.expressions.Floor
 
 //import sqlContext.implicits._
 
@@ -39,7 +40,7 @@ object TrackingService extends App {
 
   var employeeTrackingSystemReadFromCassandraTable: CassandraTableScanRDD[EmployeeTrackingSystem] = null
 
-  def saveToCassandra(sc: SparkContext,fileName:String) {
+  def saveToCassandra(sc: SparkContext, fileName: String) {
 
     try {
       //reading file from local path
@@ -95,7 +96,7 @@ object TrackingService extends App {
     val expectedArrivalEachEmp = sortFirstLogintimeListGroupByEmpid.map(f => (f._1,
 
       //if size is even then (mid1+mid2)/2 else mid
-      if (f._2.size % 2 == 0) (f._2((f._2.size / 2)) + f._2(((f._2.size) / 2) - 1)) / 2 else f._2(f._2.size / 2) //median login 
+      if ((f._2.size - 1) % 2 == 0) (f._2(((f._2.size - 1) / 2)) + f._2(((f._2.size - 1) / 2) + 1)) / 2 else f._2(((f._2.size - 1) / 2) + 1) //median login 
       ))
     return expectedArrivalEachEmp.toDF()
   }

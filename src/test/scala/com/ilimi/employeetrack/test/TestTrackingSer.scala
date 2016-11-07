@@ -3,12 +3,13 @@ package com.ilimi.employeetrack.test
 import org.scalatest.FlatSpec
 import com.ilimi.employeetrack.service.TrackingService
 import com.ilimi.employeetrack.main.SparkContextUtil
+import com.ilimi.employeetrack.datageneration.DataGeneration
 
 class TestTrackingSer extends FlatSpec {
   val sparkContext = SparkContextUtil.sparkcontext
   //test data generation
-  DataGeneration.dataGeneration
 
+  DataGeneration.dataGeneration("fileNameTest",5,"startDateTest","endDateTest")
   TrackingService.saveToCassandra(sparkContext, "fileNameTest")
 
   //reading from casssandra
@@ -22,7 +23,7 @@ class TestTrackingSer extends FlatSpec {
 
     val keys = expectedTimeRdd.collect().toMap
 
-    assert(keys.get("2").get == 34045)
+    assert(keys.get("2").get == 34590)
 
   }
 
