@@ -1,4 +1,4 @@
-package com.ilimi.employeetracker.utils
+package com.ilimi.employeetrack.utils
 
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -7,14 +7,17 @@ import org.joda.time.DateTime
 import org.joda.time.Months
 import org.joda.time.Weeks
 import org.joda.time.format.DateTimeFormat
-import com.ilimi.employeetracker.utils.PropertyReader
+import com.ilimi.employeetrack.utils.PropertyReader
 import java.util.Date
-import com.ilimi.employeetracker.utils.PropertyReader
+import com.ilimi.employeetrack.utils.PropertyReader
+
+import org.joda.time.DateMidnight
+import org.joda.time.DateTimeConstants
+import scala.collection.mutable.ArrayBuffer
 
 object DateTimeUtils {
 
- 
-//extracting time in seconds from date and time in string format
+  //extracting time in seconds from date and time in string format
   def strToOnlyTimeInSeconds(x: String): Long = {
     val parseFormat = new SimpleDateFormat(PropertyReader.getProperty("onlyDayFormat") + " " + PropertyReader.getProperty("onlyTimeFormat"))
     val printFormat = new SimpleDateFormat(PropertyReader.getProperty("onlyTimeFormat"))
@@ -56,15 +59,15 @@ object DateTimeUtils {
     return formatter.format(calendar.getTime()).toString()
   }
 
- //converting epoch time to only Day
+  //converting epoch time to only Day
   def epocTimeToDay(x: Long): String = {
     val formatter = new SimpleDateFormat(PropertyReader.getProperty("onlyDayFormat").toString());
     val calendar = Calendar.getInstance();
     calendar.setTimeInMillis(x * 1000);
     return formatter.format(calendar.getTime()).toString()
   }
-  
-//extracting only time from Date and Time in epoch format
+
+  //extracting only time from Date and Time in epoch format
   def epocDateTimeToTimeInEpoch(x: Long): Long = {
     val calendar = Calendar.getInstance();
     calendar.setTimeInMillis(x * 1000);
@@ -73,7 +76,7 @@ object DateTimeUtils {
     return strToOnlyTimeInSeconds(date)
 
   }
-//Converting epoch time to year and week
+  //Converting epoch time to year and week
   def epocTimeToDayWithWeek(x: Long): String = {
     val formatter = new SimpleDateFormat(PropertyReader.getProperty("onlyDayFormat").toString());
     val calendar = Calendar.getInstance();
@@ -82,15 +85,15 @@ object DateTimeUtils {
     val yearMonth = epocTimeToDayWithMonth(x)
     return yearMonth + " " + weekOfYear + "w"
   }
-  
+
   //Converting epoch time to year and month
   def epocTimeToDayWithMonth(x: Long): String = {
     val formatter = new SimpleDateFormat("YYYY-MM");
     val calendar = Calendar.getInstance();
     calendar.setTimeInMillis(x * 1000)
-    return formatter.format(calendar.getTime()).toString()
+    return formatter.format(calendar.getTime()).toString()+"m"
   }
-  
+
   //Generate Date sequences with out weekends in Date range
   def dateRanges(start: DateTime, end: DateTime): Array[DateMidnight] = {
     var array = ArrayBuffer[DateMidnight]()
@@ -112,4 +115,3 @@ object DateTimeUtils {
 
 }
 
-}
