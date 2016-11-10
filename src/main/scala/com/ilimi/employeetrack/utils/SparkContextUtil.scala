@@ -10,28 +10,26 @@ import org.apache.spark.sql.DataFrame
 object SparkContextUtil {
 
   
-  def sparkcontext:SparkContext=sparkContext
-  def sqlcontextAndConvertToDataFrame(sparkcontext:SparkContext,employeeTrackingSystemReadFromCassandraTable: CassandraTableScanRDD[EmployeeTrackingSystem] ):DataFrame=sqlContext(sparkcontext,employeeTrackingSystemReadFromCassandraTable)
-  def sqlContext(sparkcontext:SparkContext)= sql(sparkcontext)
-  
-  private def sparkContext: SparkContext = {
+   def sqlContext(sparkcontext: SparkContext) = sql(sparkcontext)
+
+  def sparkcontext: SparkContext = {
     val configuration = new SparkConf(true).set("spark.cassandra.connection.host", PropertyReader.getProperty("ipAddress")).setMaster(PropertyReader.getProperty("master"))
     val sc = new SparkContext("local", "test", configuration)
     return sc
   }
-  
- private  def sqlContext(sparkContext:SparkContext,employeeTrackingSystemReadFromCassandraTable: CassandraTableScanRDD[EmployeeTrackingSystem] ):DataFrame={
-    
-     val sqlContext = sql(sparkContext)
+
+  def sqlcontextAndConvertToDataFrame(sparkContext: SparkContext, employeeTrackingSystemReadFromCassandraTable: CassandraTableScanRDD[EmployeeTrackingSystem]): DataFrame = {
+
+    val sqlContext = sql(sparkContext)
     import sqlContext.implicits._
     val df = employeeTrackingSystemReadFromCassandraTable.toDF()
     return df
   }
- private def sql(sparkContext:SparkContext):SQLContext={
-   
+  private def sql(sparkContext: SparkContext): SQLContext = {
+
     val sqlContext = new SQLContext(sparkContext)
     return sqlContext
-   
- }
+
+  }
 
 }
