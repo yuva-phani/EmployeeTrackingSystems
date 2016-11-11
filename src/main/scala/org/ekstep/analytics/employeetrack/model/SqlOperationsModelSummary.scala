@@ -2,10 +2,6 @@ package org.ekstep.analytics.employeetrack.model
 
 import org.apache.spark.HashPartitioner
 import org.apache.spark.SparkContext
-import org.apache.spark.SparkContext
-import org.apache.spark.SparkContext
-import org.apache.spark.rdd.RDD
-import org.apache.spark.rdd.RDD
 import org.apache.spark.rdd.RDD
 import org.apache.spark.rdd.RDD.rddToPairRDDFunctions
 import org.apache.spark.sql.DataFrameReader
