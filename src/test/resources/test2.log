@@ -1,0 +1,25 @@
+ {    "empid": "3",    "date": "2016-10-26",    "expectedtimeinoffice": 39052,    "firstlogintime": 21322,    "timeinoffice": 42351 }
+ {    "empid": "3",    "date": "2016-10m",      "expectedtimeinoffice": 39052,    "firstlogintime": 21322,    "timeinoffice": 0 }
+ {    "empid": "3",    "date": "2016-10m 44w",  "expectedtimeinoffice": 39052,    "firstlogintime": 21322,    "timeinoffice": 0  }
+ {    "empid": "3",    "date": "2016-11-01",    "expectedtimeinoffice": 39052,    "firstlogintime": 35396,    "timeinoffice": 32710  }
+ {    "empid": "3",    "date": "2016-11-03",    "expectedtimeinoffice": 39052,    "firstlogintime": 22403,    "timeinoffice": 39052  }
+ {    "empid": "3",    "date": "2016-11m",      "expectedtimeinoffice": 39052,    "firstlogintime": 57799,    "timeinoffice": 0  }
+ {    "empid": "3",    "date": "2016-11m 45w",  "expectedtimeinoffice": 39052,    "firstlogintime": 57799,    "timeinoffice": 0  } 
+ {    "empid": "2",    "date": "2016-10-26",    "expectedtimeinoffice": 34590,    "firstlogintime": 26997,    "timeinoffice": 37435  }
+ {    "empid": "2",    "date": "2016-10-27",    "expectedtimeinoffice": 34590,    "firstlogintime": 28139,    "timeinoffice": 34590  }
+ {    "empid": "2",    "date": "2016-10-28",    "expectedtimeinoffice": 34590,    "firstlogintime": 24896,    "timeinoffice": 33501  }
+ {    "empid": "2",    "date": "2016-10-31",    "expectedtimeinoffice": 34590,    "firstlogintime": 29984,    "timeinoffice": 33164  }
+ {    "empid": "2",    "date": "2016-10m",      "expectedtimeinoffice": 34590,    "firstlogintime": 110016,    "timeinoffice": 0  }
+ {    "empid": "2",    "date": "2016-10m 44w",  "expectedtimeinoffice": 34590,    "firstlogintime": 80032,    "timeinoffice": 0  }
+ {    "empid": "2",   "date": "2016-10m 45w",   "expectedtimeinoffice": 34590,    "firstlogintime": 29984,    "timeinoffice": 0  }
+ {    "empid": "2",    "date": "2016-11-01",    "expectedtimeinoffice": 34590,    "firstlogintime": 27846,    "timeinoffice": 32960  }
+ {    "empid": "2",    "date": "2016-11-02",    "expectedtimeinoffice": 34590,    "firstlogintime": 16188,    "timeinoffice": 42285  }
+ {    "empid": "2",    "date": "2016-11-03",    "expectedtimeinoffice": 34590,    "firstlogintime": 31848,    "timeinoffice": 32802  }
+ {    "empid": "2",    "date": "2016-11-04",    "expectedtimeinoffice": 34590,    "firstlogintime": 28374,    "timeinoffice": 35431  }
+ {    "empid": "2",    "date": "2016-11-07",    "expectedtimeinoffice": 34590,    "firstlogintime": 24882,    "timeinoffice": 41019  }
+ {    "empid": "2",    "date": "2016-11m",      "expectedtimeinoffice": 34590,    "firstlogintime": 129138,    "timeinoffice": 0  }
+ {    "empid": "2",    "date": "2016-11m 45w",  "expectedtimeinoffice": 34590,    "firstlogintime": 104256,    "timeinoffice": 0  } 
+ {    "empid": "2",    "date": "2016-11m 46w",  "expectedtimeinoffice": 34590,    "firstlogintime": 24882,    "timeinoffice": 0  }   
+ {    "empid": "1",    "date": "2016-10-26",    "expectedtimeinoffice": 36714,    "firstlogintime": 23061,    "timeinoffice": 38758  }  
+ {    "empid": "1",    "date": "2016-10-31",    "expectedtimeinoffice": 36714,    "firstlogintime": 34105,    "timeinoffice": 33613  }
+ 

@@ -1,0 +1,213 @@
+{    "empid": 3,    "date": "2016-10-26",    "timeinoffice": 42351,    "firstlogintime": 21322, "expectedtimeinoffice": 39052  }
+{    "empid": 3,    "date": "2016-10m",    "timeinoffice": 0,    "firstlogintime": 21322,    "expectedtimeinoffice": 39052  }
+{    "empid": 3,    "date": "2016-10m 44w",    "timeinoffice": 0,    "firstlogintime": 21322,    "expectedtimeinoffice": 39052  }
+  {
+    "empid": 3,
+    "date": "2016-11-01",
+    "timeinoffice": 32710,
+    "firstlogintime": 35396,
+    "expectedtimeinoffice": 39052
+  },
+  {
+    "empid": 3,
+    "date": "2016-11-03",
+    "timeinoffice": 39052,
+    "firstlogintime": 22403,
+    "expectedtimeinoffice": 39052
+  },
+  {
+    "empid": 3,
+    "date": "2016-11m",
+    "timeinoffice": 0,
+    "firstlogintime": 57799,
+    "expectedtimeinoffice": 39052
+  },
+  {
+    "empid": 3,
+    "date": "2016-11m 45w",
+    "timeinoffice": 0,
+    "firstlogintime": 57799,
+    "expectedtimeinoffice": 39052
+  },
+  {
+    "empid": 2,
+    "date": "2016-10-26",
+    "timeinoffice": 37435,
+    "firstlogintime": 26997,
+    "expectedtimeinoffice": 34590
+  },
+  {
+    "empid": 2,
+    "date": "2016-10-27",
+    "timeinoffice": 34590,
+    "firstlogintime": 28139,
+    "expectedtimeinoffice": 34590
+  },
+  {
+    "empid": 2,
+    "date": "2016-10-28",
+    "timeinoffice": 33501,
+    "firstlogintime": 24896,
+    "expectedtimeinoffice": 34590
+  },
+  {
+    "empid": 2,
+    "date": "2016-10-31",
+    "timeinoffice": 33164,
+    "firstlogintime": 29984,
+    "expectedtimeinoffice": 34590
+  },
+  {
+    "empid": 2,
+    "date": "2016-10m",
+    "timeinoffice": 0,
+    "firstlogintime": 110016,
+    "expectedtimeinoffice": 34590
+  },
+  {
+    "empid": 2,
+    "date": "2016-10m 44w",
+    "timeinoffice": 0,
+    "firstlogintime": 80032,
+    "expectedtimeinoffice": 34590
+  },
+  {
+    "empid": 2,
+    "date": "2016-10m 45w",
+    "timeinoffice": 0,
+    "firstlogintime": 29984,
+    "expectedtimeinoffice": 34590
+  },
+  {
+    "empid": 2,
+    "date": "2016-11-01",
+    "timeinoffice": 32960,
+    "firstlogintime": 27846,
+    "expectedtimeinoffice": 34590
+  },
+  {
+    "empid": 2,
+    "date": "2016-11-02",
+    "timeinoffice": 42285,
+    "firstlogintime": 16188,
+    "expectedtimeinoffice": 34590
+  },
+  {
+    "empid": 2,
+    "date": "2016-11-03",
+    "timeinoffice": 32802,
+    "firstlogintime": 31848,
+    "expectedtimeinoffice": 34590
+  },
+  {
+    "empid": 2,
+    "date": "2016-11-04",
+    "timeinoffice": 35431,
+    "firstlogintime": 28374,
+    "expectedtimeinoffice": 34590
+  },
+  {
+    "empid": 2,
+    "date": "2016-11-07",
+    "timeinoffice": 41019,
+    "firstlogintime": 24882,
+    "expectedtimeinoffice": 34590
+  },
+  {
+    "empid": 2,
+    "date": "2016-11m",
+    "timeinoffice": 0,
+    "firstlogintime": 129138,
+    "expectedtimeinoffice": 34590
+  },
+  {
+    "empid": 2,
+    "date": "2016-11m 45w",
+    "timeinoffice": 0,
+    "firstlogintime": 104256,
+    "expectedtimeinoffice": 34590
+  },
+  {
+    "empid": 2,
+    "date": "2016-11m 46w",
+    "timeinoffice": 0,
+    "firstlogintime": 24882,
+    "expectedtimeinoffice": 34590
+  },
+  {
+    "empid": 1,
+    "date": "2016-10-26",
+    "timeinoffice": 38758,
+    "firstlogintime": 23061,
+    "expectedtimeinoffice": 36714
+  },
+  {
+    "empid": 1,
+    "date": "2016-10-27",
+    "timeinoffice": 38817,
+    "firstlogintime": 23400,
+    "expectedtimeinoffice": 36714
+  },
+  {
+    "empid": 1,
+    "date": "2016-10-31",
+    "timeinoffice": 33613,
+    "firstlogintime": 34105,
+    "expectedtimeinoffice": 36714
+  },
+  {
+    "empid": 1,
+    "date": "2016-10m",
+    "timeinoffice": 0,
+    "firstlogintime": 80566,
+    "expectedtimeinoffice": 36714
+  },
+  {
+    "empid": 1,
+    "date": "2016-10m 44w",
+    "timeinoffice": 0,
+    "firstlogintime": 46461,
+    "expectedtimeinoffice": 36714
+  },
+  {
+    "empid": 1,
+    "date": "2016-10m 45w",
+    "timeinoffice": 0,
+    "firstlogintime": 34105,
+    "expectedtimeinoffice": 36714
+  },
+  {
+    "empid": 1,
+    "date": "2016-11-01",
+    "timeinoffice": 34670,
+    "firstlogintime": 26806,
+    "expectedtimeinoffice": 36714
+  },
+  {
+    "empid": 1,
+    "date": "2016-11-03",
+    "timeinoffice": 34518,
+    "firstlogintime": 27829,
+    "expectedtimeinoffice": 36714
+  },
+  {
+    "empid": 1,
+    "date": "2016-11-04",
+    "timeinoffice": 39317,
+    "firstlogintime": 18998,
+    "expectedtimeinoffice": 36714
+  },
+  {
+    "empid": 1,
+    "date": "2016-11m",
+    "timeinoffice": 0,
+    "firstlogintime": 73633,
+    "expectedtimeinoffice": 36714
+  },
+  {
+    "empid": 1,
+    "date": "2016-11m 45w",
+    "timeinoffice": 0,
+    "firstlogintime": 73633,
+    "expectedtimeinoffice": 36714
+  }
