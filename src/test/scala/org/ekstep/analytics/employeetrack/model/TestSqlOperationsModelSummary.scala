@@ -7,17 +7,14 @@ class TestSqlOperationsModelSummary extends SparkSpec(null) {
   "SqlOperationsModelSummary" should "print all employees summary" in {
     println("Hi...........")
     val rdd = loadFile[EmployeeTrackingSystemWithExpectedTimeInOffice]("src/test/resources/tset3.log");
-    rdd.foreach { x => println(x) }
 
     val rdd2 = SqlOperationsModelSummary.execute(rdd, None);
-    
-    rdd2.foreach { x => println(x) }
-    
-    //val x=rdd2.map { x => x.empid }
-    
-    
-    //rdd2.collect()
-  
-  }
 
+    val sql = rdd2.map(x => x.averagetimepermonth)
+
+    sql.first() should be(9876456.0)
+    val events = rdd2.collect
+    events.length should be(1)
+
+  }
 }
