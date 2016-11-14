@@ -2,6 +2,10 @@ package org.ekstep.analytics.employeetrack.model
 
 import org.apache.spark.HashPartitioner
 import org.apache.spark.SparkContext
+import org.apache.spark.SparkContext
+import org.apache.spark.SparkContext
+import org.apache.spark.rdd.RDD
+import org.apache.spark.rdd.RDD
 import org.apache.spark.rdd.RDD
 import org.apache.spark.rdd.RDD.rddToPairRDDFunctions
 import org.apache.spark.sql.DataFrameReader
@@ -49,34 +53,32 @@ object SqlOperationsModelSummary extends IBatchModelTemplate[EmployeeTrackingSys
 
     //creating temporary view
     df.createOrReplaceTempView("employeetrackingsystem")
-    val employeeAbsent = sqlContext.sql("select  empid,count(date) as absent from employeetrackingsystem  where date like '%%%%-%%-%%' group by empid ").rdd
+    val employeeAbsent = sqlContext.sql("select  empid,count(date) as absent from employeetrackingsystem  where date like '%%%%-%%-%%' group by empid ").rdd.map { x => (x.getAs[String](0), x.getAs[Long](1)) }
 
     if (employeeAbsent == null) {
       throw new SqlOperationException("sqlOperation exception");
     }
 
     val totalWeekDays = calculateWeekDays("2016-10-20", "2016-11-04")
-    val absnt = employeeAbsent.map { x => (x.getAs[String](0), totalWeekDays.toLong - x.getAs[Long](1)) }
-    //absnt.toDF()
 
-    val sqlResult = sqlContext.sql("select empid,avg(timeinoffice) as averagetimepermonth  from employeetrackingsystem  where date like '____-__m' group by empid ").rdd.map { x => (x.getAs[String](0), x.getAs[Long](1)) }
+    val absnt = employeeAbsent.map { x => (x._1, totalWeekDays - x._2) }
 
+    val sqlResult = sqlContext.sql("select empid,avg(timeinoffice) as averagetimepermonth  from employeetrackingsystem  where date like '____-__m' group by empid ").rdd.map { x => (x.getAs[String](0), x.getAs[Double](1)) }
+    sqlResult.collect().foreach(f => println(f))
     //return sqlResult
-    val sqlResult1 = sqlContext.sql("select empid,avg(timeinoffice) as averagetimeperweek from employeetrackingsystem  where date like '%%%%-%% %%w' group by empid ").rdd.map { x => (x.getAs[String](0), x.getAs[Long](1)) }
-
+    val sqlResult1 = sqlContext.sql("select empid,avg(timeinoffice) as averagetimeperweek from employeetrackingsystem  where date like '%%%%-%% %%w' group by empid ").rdd.map { x => (x.getAs[String](0), x.getAs[Double](1)) }
+    sqlResult1.collect().foreach(f => println(f))
     val joins = sqlResult.join(sqlResult1)
-    
-    
-    joins.foreach(f=>println(f))
+
+    joins.foreach(f => println(f))
     println("After first join...........................")
     val joins2 = absnt.join(joins).map { case (a, (b, (c, d))) => (a, b, c, d) }
-   
-   
-    println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx......................"+joins2)
-     joins2.foreach(f=>println(f._1))
+
+    println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx......................" + joins2)
+    joins2.foreach(f => println(f._1.toString()))
     val mapingCaseclass = joins2.map(f => SqlOperation(f._1, f._2, f._3, f._4))
-    
-    println(mapingCaseclass+"             ............mapingCaseclass")
+
+    println(mapingCaseclass + "             ............mapingCaseclass")
     println("inside algorithm second")
     return mapingCaseclass
   }
